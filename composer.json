@@ -1,0 +1,18 @@
+{
+    "name": "votrecompagnie/matrix-preview",
+    "description": "Ajoute un bouton de prévisualisation d'images pour créer des blocs Matrix.",
+    "type": "craft-plugin",
+    "require": {
+        "craftcms/cms": "^5.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\matrixpreview\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Matrix Preview",
+        "handle": "matrix-preview",
+        "class": "modules\\matrixpreview\\Plugin"
+    }
+}

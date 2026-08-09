@@ -1,0 +1,47 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms.twig" as forms %}
+
+{% set title = "Matrix Image Preview"|t('app') %}
+
+{% block content %}
+    <form method="post" action="">
+        {{ csrfInput() }}
+        {{ actionInput('matrix-preview/settings/save') }}
+        {{ redirectInput('settings/matrix-preview') }}
+
+        {% if rows is empty %}
+            <p>{{ "No Matrix fields found."|t('app') }}</p>
+        {% else %}
+            {# Table CP native (même classe que les listes Champs/Utilisateurs),
+               pas un editableTableField : rien à ajouter/réordonner/supprimer,
+               seul le lightswitch de chaque ligne est interactif. #}
+            <table class="data fullwidth">
+                <thead>
+                    <tr>
+                        <th>{{ "Field"|t('app') }}</th>
+                        <th class="thin">{{ "Show image preview"|t('app') }}</th>
+                        <th>{{ "Image location"|t('app') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ row.fieldName }}</td>
+                            <td class="thin">
+                                {{ forms.lightswitch({
+                                    name: 'fields[' ~ row.uid ~ ']',
+                                    on: row.enabled,
+                                }) }}
+                            </td>
+                            <td><code>{{ row.imagePath }}</code></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        <div class="buttons">
+            <button type="submit" class="btn submit">{{ "Save"|t('app') }}</button>
+        </div>
+    </form>
+{% endblock %}
