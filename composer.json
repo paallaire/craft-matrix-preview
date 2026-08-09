@@ -1,6 +1,6 @@
 {
     "name": "paallaire/craft-matrix-preview",
-    "description": "Ajoute un bouton de prévisualisation d'images pour créer des blocs Matrix.",
+    "description": "Adds visual support for Matrix blocks using images.",
     "type": "craft-plugin",
     "require": {
         "craftcms/cms": "^5.0.0"
