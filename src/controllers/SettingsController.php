@@ -18,7 +18,11 @@ class SettingsController extends Controller
      */
     public function actionIndex(): Response
     {
-        $this->requireAdmin();
+        // false = on exige seulement que l'utilisateur soit admin, pas que
+        // "allowAdminChanges" soit activé. Sans ça, Craft bloque l'accès à
+        // TOUTE la page (même en lecture) dès que allowAdminChanges est à
+        // false — ce qui est le cas typique en production.
+        $this->requireAdmin(false);
 
         $projectConfig = Craft::$app->getProjectConfig();
         $webRoot = rtrim(Craft::getAlias('@web'), '/');
@@ -38,16 +42,28 @@ class SettingsController extends Controller
 
         return $this->renderTemplate('matrixpreview/settings/index', [
             'rows' => $rows,
+            'devMode' => (bool) Craft::$app->getConfig()->getGeneral()->devMode,
         ]);
     }
 
     /**
      * Sauvegarde l'état des lightswitch dans le project config (donc dans le YAML).
+     * Uniquement permis en dev mode, pour éviter que quelqu'un modifie le
+     * project config directement en production (les changements devraient
+     * plutôt être faits en dev, commités, puis déployés).
      */
     public function actionSave(): ?Response
     {
         $this->requirePostRequest();
-        $this->requireAdmin();
+        $this->requireAdmin(false);
+
+        if (!Craft::$app->getConfig()->getGeneral()->devMode) {
+            Craft::$app->getSession()->setError(
+                Craft::t('app', 'Settings can only be changed in dev mode.')
+            );
+
+            return $this->redirectToPostedUrl();
+        }
 
         // Chaque lightswitch a été posté sous fields[<uid>] = "1" ou "0",
         // donc ce tableau est directement indexé par UID de champ.

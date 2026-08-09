@@ -1,9 +1,18 @@
 {% extends "_layouts/cp" %}
 {% import "_includes/forms.twig" as forms %}
 
-{% set title = "Matrix Image Preview"|t('app') %}
+{% set title = "Matrix Preview"|t('app') %}
 
 {% block content %}
+    {% if not devMode %}
+        <div class="readable">
+            <blockquote class="note tip mp-settings-note">
+                <p>{{ "These settings can only be changed in dev mode. Changes made locally should be committed and deployed."|t('app') }}</p>
+            </blockquote>
+            <br/>
+        </div>
+    {% endif %}
+
     <form method="post" action="">
         {{ csrfInput() }}
         {{ actionInput('matrix-preview/settings/save') }}
@@ -31,6 +40,7 @@
                                 {{ forms.lightswitch({
                                     name: 'fields[' ~ row.uid ~ ']',
                                     on: row.enabled,
+                                    disabled: not devMode,
                                 }) }}
                             </td>
                             <td><code>{{ row.imagePath }}</code></td>
@@ -39,9 +49,12 @@
                 </tbody>
             </table>
         {% endif %}
-
+        {% if devMode %}
         <div class="buttons">
-            <button type="submit" class="btn submit">{{ "Save"|t('app') }}</button>
+            <button type="submit" class="btn submit">
+                {{ "Save"|t('app') }}
+            </button>
         </div>
+        {% endif %}
     </form>
 {% endblock %}
