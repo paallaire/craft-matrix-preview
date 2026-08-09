@@ -32,12 +32,15 @@
 }
 
 .mp-entry-type-btn {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-direction: column;
   text-align: left;
   padding: 20px;
   height: auto;
+  text-wrap: wrap;
 }
 
 .mp-entry-type-img {
@@ -50,6 +53,7 @@
 }
 
 .mp-entry-type-label {
+  display: block;
 }
 
 .modal.mp-modal {

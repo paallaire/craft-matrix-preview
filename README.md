@@ -1,25 +1,47 @@
 # Matrix Preview
 
-Ajoute un bouton "Show image preview" à côté de "New entry" sur tes champs
-Matrix natifs de Craft CMS 5. Cliquer dessus ouvre un modal listant les entry
-types disponibles (avec une image de prévisualisation chacun) pour ajouter un
-bloc en un clic.
+Adds a "Show image preview" button next to "New entry" on your native Craft
+CMS 5 Matrix fields. Clicking it opens a modal listing the available entry
+types (each with a preview image) so you can add a block in one click.
 
 ## Installation
 
+Add to composer.json
+
 ```bash
-composer require votrecompagnie/matrix-preview
+{
+   "type": "vcs",
+   "url": "https://github.com/paallaire/craft-matrix-preview"
+}
+```
+Example
+
+```bash
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://composer.craftcms.com",
+      "canonical": false
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/paallaire/craft-matrix-preview"
+    }
+  ]
 ```
 
-Puis va dans **Réglages → Plugins** dans le CP et installe "Matrix Preview".
+```bash
+composer require paallaire/matrix-preview
+```
 
-## Utilisation
+Then go to **Settings → Plugins** in the CP and install "Matrix Preview".
 
-1. Va dans **Réglages → Matrix Preview** (lien dans le menu de gauche du CP).
-2. Active le toggle pour chaque champ Matrix qui doit afficher le bouton.
-3. Place une image par entry type au chemin indiqué dans la colonne
-   "Image location" du tableau, ex. `web/monChamp/monEntryType.jpg`.
+## Usage
 
-## Licence
+1. Go to **Settings → Matrix Preview** (link in the CP's left-hand menu).
+2. Toggle on each Matrix field that should display the button.
+3. Place an image for each entry type at the path indicated in the "Image location" column of the table, e.g. `web/matrix-preview/{{ myField_handle }}/{{ myEntryType_handle }}.jpg`.
+
+## License
 
 MIT
