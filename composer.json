@@ -1,5 +1,5 @@
 {
-    "name": "votrecompagnie/matrix-preview",
+    "name": "paallaire/craft-matrix-preview",
     "description": "Ajoute un bouton de prévisualisation d'images pour créer des blocs Matrix.",
     "type": "craft-plugin",
     "require": {
